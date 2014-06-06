@@ -184,6 +184,30 @@ public class Foro
         return respuesta;
     }
 
+    public DataSet MostrarUsuario2(string id)
+    {
+        DataSet respuesta = new DataSet();
+        try
+        {
+            //SELECT * FROM Productos;
+            string instruccionSQL = "SELECT * FROM usuario WHERE id_usuario=" + id + ";";
+            SqlDataAdapter adaptador = new SqlDataAdapter(instruccionSQL, Conexion);
+            if (ConectarServer())
+            {
+                adaptador.Fill(respuesta, "usuario");
+            }
+        }
+        catch (Exception ex)
+        {
+            MostrarError = "Mensaje de la exepción: " + ex.Message.ToString();
+        }
+        finally
+        {
+            Conexion.Close();
+        }
+        return respuesta;
+    }
+
     public DataSet MostrarCondicion(string tabla, string condicion)
     {
         DataSet respuesta = new DataSet();

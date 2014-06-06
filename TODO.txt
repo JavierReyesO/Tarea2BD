@@ -1,0 +1,81 @@
+use XE
+IF OBJECT_ID('Trigger_N_comentarios','TR') IS NOT NULL
+BEGIN
+	DROP TRIGGER Trigger_N_comentarios;
+END;
+GO
+
+
+CREATE TRIGGER Trigger_N_comentarios
+ON comentario
+
+AFTER INSERT AS
+	BEGIN
+	DECLARE	@nueva_cantidad INT
+	DECLARE @id_usuario INT
+	SELECT @id_usuario = id_usuario FROM comentario
+	SELECT @nueva_cantidad = cantidad_comentarios  FROM usuario WHERE id_usuario = @id_usuario
+
+	UPDATE usuario SET cantidad_comentarios = @nueva_cantidad +1  WHERE id_usuario = @id_usuario
+END;
+
+
+use XE
+IF OBJECT_ID('Trigger_N_mensajes','TR') IS NOT NULL
+BEGIN
+	DROP TRIGGER Trigger_N_mensajes;
+END;
+GO
+
+
+CREATE TRIGGER Trigger_N_mensajes
+ON mensaje_privado
+
+AFTER INSERT AS
+	BEGIN
+	DECLARE	@mensajes INT
+	DECLARE @mensajes_sin_leer INT
+	DECLARE @id_buzon INT
+	SELECT @id_buzon = id_buzon FROM mensaje_privado
+	SELECT @mensajes = mensajes  FROM buzon_entrada WHERE id_buzon = @id_buzon
+	SELECT @mensajes_sin_leer = mensajes_sin_leer  FROM buzon_entrada WHERE id_buzon = @id_buzon
+
+
+	UPDATE buzon_entrada SET mensajes = @mensajes+1  WHERE id_buzon = @id_buzon
+	UPDATE buzon_entrada SET mensajes_sin_leer = @mensajes_sin_leer+1  WHERE id_buzon = @id_buzon
+
+END;
+
+
+CREATE TRIGGER trigger_decrease_read ON mensaje_privado
+AFTER INSERT
+AS
+BEGIN
+DECLARE
+@ID int
+set @ID = (select id_buzon from inserted);
+UPDATE buzon_entrada SET mensajes_sin_leer = mensajes_sin_leer + 1;
+END;
+
+
+IF OBJECT_ID('View_temas_creados') IS NOT NULL
+BEGIN
+	DROP VIEW View_temas_creados;
+END;
+GO
+
+CREATE VIEW View_temas_creados
+AS
+select TOP 5 * from tema where id_usuario = '1' order by id_tema DESC
+
+
+IF OBJECT_ID('View_ultimos_comentarios') IS NOT NULL
+BEGIN
+	DROP VIEW View_ultimos_comentarios;
+END;
+GO
+
+CREATE VIEW View_ultimos_comentarios
+AS
+select TOP 5 * from comentario where id_usuario = '1' order by id_comentario DESC
+

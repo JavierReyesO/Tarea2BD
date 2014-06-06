@@ -15,10 +15,11 @@ public partial class Perfil : System.Web.UI.Page
     //DataSet respuesta;
     protected void Page_Load(object sender, EventArgs e)
     {
-        string nombre = Request.QueryString["perfil"];
-        string usuario = Request.QueryString["usuario"];
-        resp = foro.MostrarUsuario(usuario);
+        string nombre = Request.QueryString["nombre"];
+        string usuario = Request.QueryString["id"];
+        resp = foro.MostrarUsuario2(usuario);
         DataSet respuesta = foro.MostrarUsuario(nombre);
+        Label1.Text = respuesta.Tables["usuario"].Rows[0][2].ToString();
         TextBoxNombre.Text = respuesta.Tables["usuario"].Rows[0][2].ToString();
         TextBoxEdad.Text = foro.CalcularEdad(respuesta.Tables["usuario"].Rows[0][6]).ToString();
         TextBoxSexo.Text = respuesta.Tables["usuario"].Rows[0][7].ToString();
@@ -31,25 +32,20 @@ public partial class Perfil : System.Web.UI.Page
 
     protected void ButtonEditar_Click(object sender, EventArgs e)
     {
-        string usuario = Request.QueryString["usuario"];
-        string nombre = Request.QueryString["perfil"];
+        string usuario = Request.QueryString["id"];
+        string nombre = Request.QueryString["nombre"];
         string Name = resp.Tables["usuario"].Rows[0][2].ToString();
         string id_grupo = resp.Tables["usuario"].Rows[0][1].ToString();
+        Label1.Text = Name;
         if (id_grupo == "3")
         {
-            Response.Redirect("Editar.aspx?code=016&perfil="+nombre); // Falta pasar datos
+            Response.Redirect("Editar.aspx?code=016&perfil="+nombre+"&id="+usuario); // Falta pasar datos
         }
         if (Name == usuario){
-            Response.Redirect("Editar.aspx?code=069&perfil="+nombre); // Falta pasar datos
+            Response.Redirect("Editar.aspx?code=069&perfil="+nombre+"&id="+usuario); // Falta pasar datos
         }
-        else
-        {
-
-        }
-
-
     }
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void Button1_Click1(object sender, EventArgs e)
     {
 
     }

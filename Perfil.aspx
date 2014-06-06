@@ -42,8 +42,8 @@
             <td class="style4">
                 &nbsp;</td>
             <td>
-                <asp:Button ID="ButtonEditar" runat="server" onclick="ButtonEditar_Click" 
-                    Text="Editar Perfil" Visible="False" />
+                <asp:Button ID="Button1" runat="server" onclick="Button1_Click1" 
+                    Text="Button" />
             </td>
         </tr>
         <tr>
@@ -62,7 +62,9 @@
                 <asp:TextBox ID="TextBoxEdad" runat="server" ReadOnly="True"></asp:TextBox>
             </td>
             <td class="style1">
-                &nbsp;</td>
+                <asp:Button ID="ButtonEditar" runat="server" onclick="ButtonEditar_Click" 
+                    Text="Editar Perfil" Visible="False" />
+            </td>
         </tr>
         <tr>
             <td class="style3">
@@ -89,7 +91,8 @@
                 <asp:TextBox ID="TextBoxFecha" runat="server" ReadOnly="True"></asp:TextBox>
             </td>
             <td class="style1">
-                &nbsp;</td>
+                <asp:Label ID="Label1" runat="server"></asp:Label>
+            </td>
         </tr>
         <tr>
             <td class="style3">

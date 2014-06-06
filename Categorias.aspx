@@ -32,16 +32,20 @@
         AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
         BorderStyle="None" BorderWidth="1px" CellPadding="3" 
         DataSourceID="SqlDataSource1" GridLines="Vertical" 
-        onselectedindexchanged="GridView1_SelectedIndexChanged">
+        onselectedindexchanged="GridView1_SelectedIndexChanged" 
+        DataKeyNames="id_categoria">
         <AlternatingRowStyle BackColor="Gainsboro" />
         <Columns>
-            <asp:HyperLinkField DataNavigateUrlFields="nombre" 
-                DataNavigateUrlFormatString="Temas.aspx?nombre={0}" DataTextField="nombre" 
-                HeaderText="Nombre" NavigateUrl="~/Temas.aspx" />
+            <asp:HyperLinkField DataNavigateUrlFields="id_categoria" 
+                DataNavigateUrlFormatString="Temas.aspx?id_cat={0}" DataTextField="nombre" 
+                HeaderText="Nombre" />
             <asp:BoundField DataField="nombre" HeaderText="nombre" 
-                SortExpression="nombre" InsertVisible="False" Visible="False" />
+                SortExpression="nombre" Visible="False" />
             <asp:BoundField DataField="descripcion" HeaderText="Descripcion" 
                 SortExpression="descripcion" />
+            <asp:BoundField DataField="id_categoria" HeaderText="id_categoria" 
+                InsertVisible="False" ReadOnly="True" SortExpression="id_categoria" 
+                Visible="False" />
         </Columns>
         <FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
         <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
@@ -55,7 +59,8 @@
     </asp:GridView>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:BDConnectionString %>" 
-        SelectCommand="SELECT [nombre], [descripcion] FROM [categoria]">
+        
+        SelectCommand="SELECT [nombre], [descripcion], [id_categoria] FROM [categoria]">
     </asp:SqlDataSource>
     </form>
 </body>

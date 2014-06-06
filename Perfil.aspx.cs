@@ -9,16 +9,16 @@ using System.Data.SqlClient;
 
 public partial class Perfil : System.Web.UI.Page
 {
-    string nombreusuario = "1";
+    //string nombreusuario = "1";
     Foro foro = new Foro();
     DataSet resp;
-    DataSet respuesta;
+    //DataSet respuesta;
     protected void Page_Load(object sender, EventArgs e)
     {
         string nombre = Request.QueryString["perfil"];
         string usuario = Request.QueryString["usuario"];
         resp = foro.MostrarUsuario(usuario);
-        respuesta = foro.MostrarUsuario(nombre);
+        DataSet respuesta = foro.MostrarUsuario(nombre);
         TextBoxNombre.Text = respuesta.Tables["usuario"].Rows[0][2].ToString();
         TextBoxEdad.Text = foro.CalcularEdad(respuesta.Tables["usuario"].Rows[0][6]).ToString();
         TextBoxSexo.Text = respuesta.Tables["usuario"].Rows[0][7].ToString();

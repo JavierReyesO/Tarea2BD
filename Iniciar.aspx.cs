@@ -29,7 +29,7 @@ public partial class Iniciar : System.Web.UI.Page
         SqlDataReader Reg = null;
         Reg = ComandoSQL.ExecuteReader();
         if (Reg.Read()){
-            Response.Redirect("Categorias.aspx?nombre="+TextBoxUsuario.Text+"&id_usuario="+id_usuario);
+            Response.Redirect("Categorias.aspx?nombre="+TextBoxUsuario.Text+"&id="+id_usuario);
         }
         else{
         }
